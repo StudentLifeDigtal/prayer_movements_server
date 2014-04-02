@@ -1,19 +1,2 @@
-# Be sure to restart your server when you modify this file.
-
-# Your secret key for verifying the integrity of signed cookies.
-# If you change this key, all old signed cookies will become invalid!
-
-# Make sure the secret is at least 30 characters and all random,
-# no regular words or you'll be exposed to dictionary attacks.
-# You can use `rake secret` to generate a secure secret key.
-
-# Make sure your secret_key_base is kept private
-# if you're sharing your code publicly.
-
-# Although this is not needed for an api-only application, rails4 
-# requires secret_key_base or secret_token to be defined, otherwise an 
-# error is raised.
-# Using secret_token for rails3 compatibility. Change to secret_key_base
-# to avoid deprecation warning.
-# Can be safely removed in a rails3 api-only application.
 PrayerMovementsServer::Application.config.secret_token = '0b4e4e6d075f6ebed6a0343c446634ee6a2167819eaf4178289ad7cf75b3597651fcb3ce9a51b5796f90df3802af4d4e063af7a2ae186ae11b9aa3637fca5c56'
+PrayerMovementsServer::Application.config.secret_key_base = 'jkdfn4308hdnrufjg786grv23bifoenv09dinb9r78gt6f368rt678gfb9rfv0nbisdf09b3u9ijo3098hfgy7uv3eu897f6t5rfctgvydbhu'
