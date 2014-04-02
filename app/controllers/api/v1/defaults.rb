@@ -15,19 +15,26 @@ module API
           error_response(message: e.message, status: 404)
         end
 
+        # global handler for invalid params
+        rescue_from Grape::Exceptions::ValidationErrors do |e|
+          error_response(message: e.message, status: 400)
+        end
+
         # global exception handler, used for error notifications
         rescue_from :all do |e|
           if Rails.env.development?
             raise e
           else
-            Raven.capture_exception(e)
+            Airbrake.notify(e)
+
             error_response(message: "Internal server error", status: 500)
           end
         end
 
-        # HTTP header based authentication
-        before do
-          error!('Unauthorized', 401) unless headers['Authorization'] == "some token"
+        helpers do
+          def permitted_params
+            @permitted_params ||= declared(params, include_missing: false)
+          end
         end
       end
     end
