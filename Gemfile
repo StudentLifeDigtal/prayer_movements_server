@@ -23,6 +23,9 @@ gem 'airbrake'
 
 group :development, :production do
   gem 'puma'
+  gem 'spring-commands-rspec'
+  gem 'rspec-rails'
+  gem 'rb-fsevent' if `uname` =~ /Darwin/
 end
 
 group :development, :test do
@@ -30,6 +33,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'foreman'
   gem 'travis'
   gem 'rails-erd'
   gem 'better_errors'
@@ -50,6 +54,6 @@ group :test do
   gem 'oauth2'
   gem 'fuubar'
   gem 'factory_girl_rails'
-  gem 'rspec-rails', '~> 2.0'
+  gem "codeclimate-test-reporter", require: nil
   gem 'simplecov', :require => false
 end
