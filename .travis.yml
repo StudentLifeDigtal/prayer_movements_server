@@ -10,9 +10,9 @@ script:
  - RAILS_ENV=test bundle exec rake
 deploy:
  provider: heroku
- strategy:git
+ strategy: git
  api_key:
-  secure: Ev83Ou/pYMk9d5h989a3Mw5sRXHzuBJdnWtZXn+ZhkQtgO/+if4Cl5gGKxjRkxpukEK4ySt8g/7XQcS2NKS9mCQtZS6a+1TKlm5E7l/PIDTtQ5hW0Bd4t9E8MFpVI16i5hpEqeSXVdyaz2Jitke/s2A2454rhEQnHtq9P6TLTxU=
+  secure: :Ev83Ou/pYMk9d5h989a3Mw5sRXHzuBJdnWtZXn+ZhkQtgO/+if4Cl5gGKxjRkxpukEK4ySt8g/7XQcS2NKS9mCQtZS6a+1TKlm5E7l/PIDTtQ5hW0Bd4t9E8MFpVI16i5hpEqeSXVdyaz2Jitke/s2A2454rhEQnHtq9P6TLTxU=
  app:
   master: prymv-staging
   production: prymv
@@ -21,6 +21,8 @@ deploy:
   repo: slnz/prymv
 addons:
  code_climate:
-  repo_token: 8f0ab3e4e6829f500e8c4bf10f1b6f1de24a8e454b7553cd1cd42648232a2f63
+  repo_token:
+    secure: "u30YVV/IN38DcGst62vFjZi5jn/5yoTU/fEXo2h1CeY//g1e67B/l8Ilf3EJmLU+NXAOc4bwFs04u4ip3pCvZ+HiWl4uPSG7RwJK58chBvX/qHXZ23jmTXfhHfPTxOin9cdcO3nlWF4z6+An7NK1upbcF/8Y3/qQqkn/QbQkDJ8="
 notifications:
-  flowdock: c2d67589216098c8a21756d9e14dfa8f
+  flowdock:
+    secure: "QrypDCmNTfFV+t4ytfq5aOwcxvNN1ZCdGuj206SOMAjNLOCbY2rmYBKt0U3KBxgI3UrQTguSjYezxTtcweKL29qyI8E6v+1t/cBAAMDReU1o2BKE2bNqOsH4idKtReg55kOzSUPstDWUciNgJ1SJnp1uNTp63jxXWiJmGe/eALE="
