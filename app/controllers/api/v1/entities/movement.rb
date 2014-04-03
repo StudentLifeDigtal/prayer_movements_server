@@ -9,7 +9,7 @@ module API
           movement.memberships.count
         end
         expose :long_description, if: { type: :full }
-        expose :website, if: { type: :full }
+        expose :website, documentation: { required: true, type: "string", desc: "One of admin, moderator, author, member, invited, banned" }, if: { type: :full }
         expose :founded, if: { type: :extended }
         expose :founder, if: { type: :extended }
         expose :mission, if: { type: :extended }

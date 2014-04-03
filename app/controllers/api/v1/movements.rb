@@ -26,14 +26,17 @@ module API
         }
 
         paginate :per_page => 10
+        params do
+          optional :type, type: Symbol, values: [:minimal, :full, :extended], default: :minimal, desc: "*minimal*, full, or extended"
+        end
         get do
-          present paginate( Movement.where("privacy = 'open' or id IN (?)", current_user.memberships.where("role != 'banned'").pluck(:movement_id) ) ), with: API::V1::Entities::Movement, user: current_user
+          present paginate( Movement.where("privacy = 'open' or id IN (?)", current_user.memberships.where("role != 'banned'").pluck(:movement_id) ) ), with: API::V1::Entities::Movement, user: current_user, type: params[:type]
         end
 
         desc "Get a movement"
         params do
           requires :id, type: Integer, desc: "Movement ID"
-          optional :type, type: Symbol, values: [:minimal, :full, :extended], default: :minimal, desc: "Fetches additional data"
+          optional :type, type: Symbol, values: [:minimal, :full, :extended], default: :minimal, desc: "*minimal*, full, or extended"
         end
         route_param :id do
           get '/', :http_codes => [
