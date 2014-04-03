@@ -1,11 +1,17 @@
 language: ruby
 cache: bundler
 rvm:
- - 2.1.1
+ - 2.1.0
 before_script:
  - psql -c 'create database prayer_movements_test;' -U postgres
  - cp config/database.yml.travis config/database.yml
  - bundle exec rake db:migrate RAILS_ENV=test
+install: script/cached-bundle install --deployment
+env:
+  global:
+  - AMAZON_S3_BUCKET=slnz_bundle_cache
+  - AMAZON_ACCESS_KEY_ID=AKIAJQKGKDVVEYOJWQEQ
+  - secure: "FbC37s42jwrbTA8buE5NyydyhUHPjpWlhdlFSN76GfCcuwAS+Ic2/U4dZ3dpQCPon7v1Xq1PsJKbjGeDcb9xxMyGfYx3xvzFT5VXdZ++cM0STiI/BcFtONziLekmbdrobg4OEKfDIppIbktZvCF9mtcP4Klyv7/TNVZjSPwWNl0="
 script:
  - RAILS_ENV=test bundle exec rake
 deploy:
