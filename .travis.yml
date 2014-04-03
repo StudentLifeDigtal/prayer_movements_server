@@ -20,3 +20,5 @@ deploy:
 addons:
  code_climate:
   repo_token: 8f0ab3e4e6829f500e8c4bf10f1b6f1de24a8e454b7553cd1cd42648232a2f63
+notifications:
+  flowdock: c2d67589216098c8a21756d9e14dfa8f
