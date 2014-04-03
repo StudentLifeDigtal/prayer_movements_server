@@ -12,7 +12,7 @@ deploy:
  api_key:
   secure: Ev83Ou/pYMk9d5h989a3Mw5sRXHzuBJdnWtZXn+ZhkQtgO/+if4Cl5gGKxjRkxpukEK4ySt8g/7XQcS2NKS9mCQtZS6a+1TKlm5E7l/PIDTtQ5hW0Bd4t9E8MFpVI16i5hpEqeSXVdyaz2Jitke/s2A2454rhEQnHtq9P6TLTxU=
  app:
-  staging: prymv-staging
+  master: prymv-staging
   production: prymv
  run: "rake db:migrate"
  on:
