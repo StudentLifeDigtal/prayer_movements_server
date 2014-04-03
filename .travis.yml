@@ -5,8 +5,9 @@ rvm:
 before_script:
  - psql -c 'create database prayer_movements_test;' -U postgres
  - cp config/database.yml.travis config/database.yml
+ - bundle exec rake db:migrate RAILS_ENV=test
 script:
- - RAILS_ENV=test bundle exec rake --trace db:migrate test
+ - RAILS_ENV=test bundle exec rake
 deploy:
  provider: heroku
  strategy:git
