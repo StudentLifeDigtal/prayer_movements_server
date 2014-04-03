@@ -1,0 +1,50 @@
+h1. prymv.org
+
+"!https://travis-ci.org/slnz/prymv.svg!":https://travis-ci.org/slnz/prymv
+"!https://codeclimate.com/github/slnz/prymv.png!":https://codeclimate.com/github/slnz/prymv
+!https://gemnasium.com/slnz/prymv.svg(Dependency Status)!:https://gemnasium.com/slnz/prymv
+
+h2. Prayer Movements
+
+"PRYMV" is a project of the University Christian Group "Student Life":https://www.studentlife.org.nz/ that allows a movement of people whether a church, youth group or mission organization to take get a continuous prayer movement by "crowdsourcing":http://en.wikipedia.org/wiki/Crowdsourcing‎ the task of praying to individuals everywhere.
+
+Don't hesitate to "contact us":https://www.studentlife.org.nz/contact-us/ if you any questions or comments.
+
+h2.  How does PRYMV work?
+
+# An individual creates a movement that represents a real world group.
+# He invites others to follow that movement.
+# He posts up prayer requests to the movement.
+# Followers pray for various requests from the movements they are following.
+# He posts up praise reports once the prayer has been answered.
+
+"http://prymv.herokuapp.com/":http://prymv.herokuapp.com/
+
+h2. Setting Up PRYMV
+
+h3. Setup configuration files
+
+Make any necessary edits to these if the defaults don't work for you.
+
+# cp config/database.example.yml config/database.yml
+
+h3. Run basic setup tasks
+
+bc.. rake db:create:all
+rake db:migrate
+rake db:populate
+bundle install
+
+h3. Start your local server
+
+bc. foreman start
+
+h3. Start your continuous testing environment
+
+bc. bundle exec guard
+
+PRYMV should now be running on your computer at the URL "http://localhost:5000":http://localhost:5000
+
+h3. PRYMV API Documentation
+
+On your local server you can find the documentation hosted at the URL "http://localhost:5000/api/docs":http://localhost:5000/api/docs
