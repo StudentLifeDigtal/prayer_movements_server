@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 # Server
 gem 'rails'
-gem 'puma'
 
 # Database
 gem 'pg'
@@ -22,29 +21,35 @@ gem 'cancan'
 
 gem 'airbrake'
 
+group :development, :production do
+  gem 'puma'
+end
+
 group :development, :test do
-  gem 'jazz_hands'
-  gem 'rspec-rails', '~> 2.0'
-  gem 'factory_girl_rails', :require => false
+  gem 'pry'
 end
 
 group :development do
+  gem 'travis'
   gem 'rails-erd'
   gem 'better_errors'
   gem 'dotenv-rails'
   gem 'binding_of_caller'
   gem 'guard'
-  gem 'guard-spork'
   gem 'guard-bundler'
   gem 'guard-rspec'
+  gem 'guard-spring'
 end
 
 group :test do
+  gem 'rake'
   gem 'grape-entity-matchers'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'selenium-webdriver'
   gem 'oauth2'
   gem 'fuubar'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 2.0'
   gem 'simplecov', :require => false
 end
