@@ -29,6 +29,7 @@ GEM
     airbrake (3.1.16)
       builder
       multi_json
+    analytics-ruby (1.0.0)
     arel (4.0.2)
     atomic (1.1.16)
     attr_required (1.0.0)
@@ -216,6 +217,11 @@ GEM
       activesupport (>= 3.0)
       choice (~> 0.1.6)
       ruby-graphviz (~> 1.0.4)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.2)
+    rails_stdout_logging (0.0.3)
     railties (4.0.4)
       actionpack (= 4.0.4)
       activesupport (= 4.0.4)
@@ -306,6 +312,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   airbrake
+  analytics-ruby (~> 1.0)
   better_errors
   binding_of_caller
   cancan
@@ -333,6 +340,7 @@ DEPENDENCIES
   rack-oauth2
   rails
   rails-erd
+  rails_12factor
   rake
   rb-fsevent
   rspec-rails

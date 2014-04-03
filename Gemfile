@@ -19,17 +19,20 @@ gem 'doorkeeper'
 gem 'rack-oauth2'
 gem 'cancan'
 
+# Logs
 gem 'airbrake'
+gem 'analytics-ruby', '~>1.0'
 
 group :development, :production do
   gem 'puma'
-  gem 'spring-commands-rspec'
-  gem 'rspec-rails'
-  gem 'rb-fsevent' if `uname` =~ /Darwin/
 end
 
 group :development, :test do
   gem 'pry'
+  gem 'spring-commands-rspec'
+  gem 'rspec-rails'
+  gem 'rb-fsevent' if `uname` =~ /Darwin/
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -37,7 +40,6 @@ group :development do
   gem 'travis'
   gem 'rails-erd'
   gem 'better_errors'
-  gem 'dotenv-rails'
   gem 'binding_of_caller'
   gem 'guard'
   gem 'guard-bundler'
@@ -56,4 +58,8 @@ group :test do
   gem 'factory_girl_rails'
   gem "codeclimate-test-reporter", require: nil
   gem 'simplecov', :require => false
+end
+
+group :production do
+  gem 'rails_12factor'
 end
