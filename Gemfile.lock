@@ -342,7 +342,6 @@ DEPENDENCIES
   rails-erd
   rails_12factor
   rake
-  rb-fsevent
   rspec-rails
   selenium-webdriver
   shoulda-matchers

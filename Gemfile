@@ -31,7 +31,6 @@ group :development, :test do
   gem 'pry'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
-  gem 'rb-fsevent' if `uname` =~ /Darwin/
   gem 'dotenv-rails'
 end
 
