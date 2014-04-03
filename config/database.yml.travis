@@ -1,0 +1,4 @@
+test:
+  adapter: postgresql
+  database: prayer_movements_test
+  username: postgres
