@@ -2,9 +2,6 @@ module API
   module V1
     class Movements < Grape::API
       include API::V1::Defaults
-      include API::Concerns::APIGuard
-      include Grape::Kaminari
-      guard_all!
 
       resource :movements do
         desc "Get movements", {

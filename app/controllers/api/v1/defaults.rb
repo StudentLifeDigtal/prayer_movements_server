@@ -6,6 +6,10 @@ module API
       extend ActiveSupport::Concern
 
       included do
+        include API::Concerns::APIGuard
+        include Grape::Kaminari
+        guard_all!
+
         # common Grape settings
         version 'v1'
         format :json
