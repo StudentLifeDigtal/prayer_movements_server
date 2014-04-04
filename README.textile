@@ -1,8 +1,6 @@
 h1. prymv.org
 
-"!https://travis-ci.org/slnz/prymv.svg!":https://travis-ci.org/slnz/prymv
-"!https://codeclimate.com/github/slnz/prymv.png!":https://codeclimate.com/github/slnz/prymv
-!https://gemnasium.com/slnz/prymv.svg(Dependency Status)!:https://gemnasium.com/slnz/prymv
+"!https://travis-ci.org/slnz/prymv.svg!":https://travis-ci.org/slnz/prymv "!https://codeclimate.com/github/slnz/prymv.png!":https://codeclimate.com/github/slnz/prymv !https://gemnasium.com/slnz/prymv.svg(Dependency Status)!:https://gemnasium.com/slnz/prymv
 
 h2. Prayer Movements
 
