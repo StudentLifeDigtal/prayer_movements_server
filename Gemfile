@@ -18,7 +18,7 @@ gem 'grape-entity'
 gem 'devise'
 gem 'doorkeeper'
 gem 'rack-oauth2'
-gem 'cancan'
+gem 'cancancan', '~> 1.7'
 
 # Logs
 gem 'airbrake'
