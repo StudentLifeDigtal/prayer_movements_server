@@ -19,6 +19,11 @@ module API
           error_response(message: e.message, status: 404)
         end
 
+        # global handler for incorrect permissions
+        rescue_from CanCan::AccessDenied do |e|
+          error_response(message: e.message, status: 403)
+        end
+
         # global handler for invalid params
         rescue_from Grape::Exceptions::ValidationErrors do |e|
           error_response(message: e.message, status: 400)
@@ -26,9 +31,9 @@ module API
 
         # global exception handler, used for error notifications
         rescue_from :all do |e|
-          if Rails.env.development?
+          if Rails.env.development? || Rails.env.test?
             raise e
-          else
+        else
             Airbrake.notify(e)
 
             error_response(message: "Internal server error", status: 500)
@@ -39,6 +44,10 @@ module API
           def permitted_params
             @permitted_params ||= declared(params, include_missing: false)
           end
+
+          def authorize!(*args)
+            ::Ability.new(current_user).authorize!(*args)
+           end
         end
       end
     end

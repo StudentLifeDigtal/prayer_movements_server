@@ -9,13 +9,13 @@ module API
           movement.memberships.count
         end
         expose :long_description, if: { type: :full }
-        expose :website, documentation: { required: true, type: "string", desc: "One of admin, moderator, author, member, invited, banned" }, if: { type: :full }
+        expose :website, if: { type: :full }
         expose :founded, if: { type: :extended }
         expose :founder, if: { type: :extended }
         expose :mission, if: { type: :extended }
         expose :phone, if: { type: :extended }
         expose :email, if: { type: :extended }
-        expose :role, documentation: { required: true, type: "string", desc: "One of admin, moderator, author, member, invited, banned" } do |movement, options|
+        expose :role, documentation: { required: true, type: "string", desc: "One of admin, moderator, author, member, invited, banned, none" } do |movement, options|
           role = Membership.where(:user_id => options[:user].id, :movement_id => movement.id).first.try(:role)
           if role.nil? then "none" else role end
         end
