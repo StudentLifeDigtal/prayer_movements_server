@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  database: prymv_dev
+  username: macuser
+test:
+  adapter: postgresql
+  database: prymv_test
+  username: macuser
