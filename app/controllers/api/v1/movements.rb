@@ -30,6 +30,19 @@ module API
           present paginate( Movement.where("privacy = 'open' or id IN (?)", current_user.memberships.where("role != 'banned'").pluck(:movement_id) ) ), with: API::V1::Entities::Movement, user: current_user, type: params[:type]
         end
 
+        desc "create a movement"
+        params do  
+          group :movement do
+            requires :name, type: String
+            requires :short_description, type: String
+            requires :privacy, type: Symbol, values: [:open, :closed, :secret], default: :open, desc: "*open*, closed, or secret"
+          end
+        end
+        post do
+          @movement = Movement.create permitted_params
+          present @movement, with: API::V1::Entities::Movement
+        end
+
         desc "Get a movement"
         params do
           requires :id, type: Integer, desc: "Movement ID"
@@ -40,21 +53,24 @@ module API
             [400, "Invalid parameter entry"],
             [404, "ID Not found"]
           ] do
-            movement = Movement.find(params[:id])
-            if movement.privacy == "open" or current_user.memberships.exists?(["memberships.role != 'banned' and memberships.movement_id = ?", params[:id]])
-              present movement, with: API::V1::Entities::Movement, user: current_user, type: params[:type]
-            else
-              status 404
-              {error: "Couldn't find Movement with id=#{params[:id]}"}
-            end
+            @movement = Movement.find(params[:id])
+            authorize! :get, @movement, :message => "Unable to retrieve this movement"
+            present @movement, with: API::V1::Entities::Movement, user: current_user, type: params[:type]
           end
         end
+
         desc "Delete a movement"
         params do
-          requires :id, type: String, desc: "Status ID."
+          requires :id, type: String, desc: "Movement ID"
         end
-        delete ':id' do
-          current_user.movement.find(params[:id]).destroy
+        delete ':id', :http_codes => [
+            [403, "Permission denied"],
+            [404, "ID Not found"]
+          ] do
+          @movement = Movement.find(params[:id])
+          authorize! :delete, @movement, :message => "Unable to delete this movement"
+          @movement.destroy
+          present "success"
         end
 
       end

@@ -1,6 +1,6 @@
 class Movement < ActiveRecord::Base
 	#name:string founded:date founder:string short_description:text long_description:text mission:text phone:string email:string website:string
-	has_many :memberships
+	has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
 	validates :name, presence: true
 	validates :short_description, presence: true, length: { maximum: 150, minimum: 5 }
