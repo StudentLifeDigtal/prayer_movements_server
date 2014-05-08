@@ -45,6 +45,7 @@ group :development do
   gem 'guard-bundler'
   gem 'guard-rspec'
   gem 'guard-spring'
+  gem 'guard-rubocop'
 end
 
 group :test do
@@ -52,7 +53,6 @@ group :test do
   gem 'grape-entity-matchers'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
-  gem 'selenium-webdriver'
   gem 'oauth2'
   gem 'fuubar'
   gem 'factory_girl_rails'

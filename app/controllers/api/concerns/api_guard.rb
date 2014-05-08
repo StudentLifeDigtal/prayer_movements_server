@@ -28,7 +28,7 @@ module API
         #
         # If token is presented and valid, then it sets @current_user.
         #
-        # If the token does not have sufficient scopes to cover the requred scopes,
+        # If the token does not have scope to cover the required scopes,
         # then it raises InsufficientScopeError.
         #
         # If the token is expired, then it raises ExpiredError.
@@ -43,24 +43,24 @@ module API
         #           Defaults to empty array.
         #
         def guard!(scopes: [])
-          token_string = get_token_string()
+          token_string = get_token_string
 
           if token_string.blank?
-            raise MissingTokenError
+            fail MissingTokenError
 
           elsif (access_token = find_access_token(token_string)).nil?
-            raise TokenNotFoundError
+            fail TokenNotFoundError
 
           else
             case validate_access_token(access_token, scopes)
             when Oauth2::AccessTokenValidationService::INSUFFICIENT_SCOPE
-              raise InsufficientScopeError.new(scopes)
+              fail InsufficientScopeError.new(scopes)
 
             when Oauth2::AccessTokenValidationService::EXPIRED
-              raise ExpiredError
+              fail ExpiredError
 
             when Oauth2::AccessTokenValidationService::REVOKED
-              raise RevokedError
+              fail RevokedError
 
             when Oauth2::AccessTokenValidationService::VALID
               @current_user = User.find(access_token.resource_owner_id)
@@ -74,6 +74,7 @@ module API
         end
 
         private
+
         def get_token_string
           # The token was stored after the authenticator was invoked.
           # It could be nil. The authenticator does not check its existence.
@@ -85,7 +86,8 @@ module API
         end
 
         def validate_access_token(access_token, scopes)
-          Oauth2::AccessTokenValidationService.validate(access_token, scopes: scopes)
+          Oauth2::AccessTokenValidationService.validate(access_token,
+                                                        scopes: scopes)
         end
       end
 
@@ -104,45 +106,52 @@ module API
         end
 
         private
-        def install_error_responders(base)
-          error_classes = [ MissingTokenError, TokenNotFoundError,
-                            ExpiredError, RevokedError, InsufficientScopeError]
 
-          base.send :rescue_from, *error_classes, oauth2_bearer_token_error_handler
+        def install_error_responders(base)
+          error_classes = [MissingTokenError,
+                           TokenNotFoundError,
+                           ExpiredError,
+                           RevokedError,
+                           InsufficientScopeError]
+
+          base.send :rescue_from,
+                    *error_classes,
+                    oauth2_bearer_token_error_handler
         end
 
         def oauth2_bearer_token_error_handler
-          Proc.new {|e|
-            response = case e
-              when MissingTokenError
-                Rack::OAuth2::Server::Resource::Bearer::Unauthorized.new
+          Proc.new do |e|
+            response =
+            case e
+            when MissingTokenError
+              Rack::OAuth2::Server::Resource::Bearer::Unauthorized.new
 
-              when TokenNotFoundError
-                Rack::OAuth2::Server::Resource::Bearer::Unauthorized.new(
-                  :invalid_token,
-                  "Bad Access Token.")
+            when TokenNotFoundError
+              Rack::OAuth2::Server::Resource::Bearer::Unauthorized.new(
+                :invalid_token,
+                'Bad Access Token.')
 
-              when ExpiredError
-                Rack::OAuth2::Server::Resource::Bearer::Unauthorized.new(
-                  :invalid_token,
-                  "Token is expired. You can either do re-authorization or token refresh.")
+            when ExpiredError
+              Rack::OAuth2::Server::Resource::Bearer::Unauthorized.new(
+                :invalid_token,
+                'Token is expired. ' \
+                'You can either do re-authorization or token refresh.')
 
-              when RevokedError
-                Rack::OAuth2::Server::Resource::Bearer::Unauthorized.new(
-                  :invalid_token,
-                  "Token was revoked. You have to re-authorize from the user.")
+            when RevokedError
+              Rack::OAuth2::Server::Resource::Bearer::Unauthorized.new(
+                :invalid_token,
+                'Token was revoked. You have to re-authorize from the user.')
 
-              when InsufficientScopeError
-                # FIXME: ForbiddenError (inherited from Bearer::Forbidden of Rack::Oauth2)
-                # does not include WWW-Authenticate header, which breaks the standard.
-                Rack::OAuth2::Server::Resource::Bearer::Forbidden.new(
-                  :insufficient_scope,
-                  Rack::OAuth2::Server::Resource::ErrorMethods::DEFAULT_DESCRIPTION[:insufficient_scope],
-                  { :scope => e.scopes})
-              end
+            when InsufficientScopeError
+              Rack::OAuth2::Server::Resource::Bearer::Forbidden.new(
+                :insufficient_scope,
+                Rack::OAuth2::Server::Resource::\
+                ErrorMethods::DEFAULT_DESCRIPTION[:insufficient_scope],
+                scope: e.scopes)
+            end
 
             response.finish
-          }
+          end
         end
       end
 

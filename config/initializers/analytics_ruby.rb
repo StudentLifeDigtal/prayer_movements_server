@@ -1,8 +1,6 @@
-Analytics = AnalyticsRuby       # Alias for convenience
+Analytics = AnalyticsRuby
 
 unless ENV['analytics_key'].nil?
-	Analytics.init({
-	    secret: ENV['analytics_key'],          # The write key for slnz/prymv
-	    on_error: Proc.new { |status, msg| print msg }  # Optional error handler
-	})
+  Analytics.init(secret: ENV['analytics_key'],
+                 on_error: Proc.new { |_status, msg| print msg })
 end

@@ -2,7 +2,8 @@
 module API
   module V1
     module Defaults
-      # if you're using Grape outside of Rails, you'll have to use Module#included hook
+      # if you're using Grape outside of Rails
+      # you'll have to use Module#included hook
       extend ActiveSupport::Concern
 
       included do
@@ -32,11 +33,11 @@ module API
         # global exception handler, used for error notifications
         rescue_from :all do |e|
           if Rails.env.development? || Rails.env.test?
-            raise e
-        else
+            fail e
+          else
             Airbrake.notify(e)
 
-            error_response(message: "Internal server error", status: 500)
+            error_response(message: 'Internal server error', status: 500)
           end
         end
 
@@ -47,7 +48,7 @@ module API
 
           def authorize!(*args)
             ::Ability.new(current_user).authorize!(*args)
-           end
+          end
         end
       end
     end

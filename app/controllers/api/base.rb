@@ -1,5 +1,5 @@
-#app/controllers/api/base.rb
-Dir["/app/representers/*.rb"].each {|file| require file }
+# app/controllers/api/base.rb
+Dir['/app/representers/*.rb'].each { |file| require file }
 
 module API
   class Dispatch < Grape::API
