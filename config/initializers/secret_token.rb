@@ -1,2 +1,1 @@
-PrayerMovementsServer::Application.config.secret_token = '0b4e4e6d075f6ebed6a0343c446634ee6a2167819eaf4178289ad7cf75b3597651fcb3ce9a51b5796f90df3802af4d4e063af7a2ae186ae11b9aa3637fca5c56'
-PrayerMovementsServer::Application.config.secret_key_base = 'jkdfn4308hdnrufjg786grv23bifoenv09dinb9r78gt6f368rt678gfb9rfv0nbisdf09b3u9ijo3098hfgy7uv3eu897f6t5rfctgvydbhu'
+PrayerMovementsServer::Application.config.secret_token = ENV['SECRET_TOKEN']
